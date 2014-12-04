@@ -7,7 +7,7 @@
 <body ng-app="app">
 <div class="container">
     <div ng-controller="MainController">
-
+       {{countdown}}
         <form name="searchUser" ng-submit="search(username)">
             <input type="search" required placeholder="User to find" ng-model="username"/>
             <input type="submit" value="Search" />

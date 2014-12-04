@@ -2,7 +2,7 @@
  * Created by mariaturzynska on 12/3/14.
  */
 angular.module('app', [])
-    .controller('MainController', ['$scope', '$http', function ($scope, $http) {
+    .controller('MainController', ['$scope', '$http', '$interval', '$log',function ($scope, $http, $interval, $log) {
 
         var onUserComplete = function (response) {
             $scope.user = response.data;
@@ -19,14 +19,37 @@ angular.module('app', [])
             $scope.error = 'Could not fetch the user'
         }
 
+        var decrementCountdown=function(){
+            $scope.countdown-=1;
+            if($scope.countdown<1){
+                $scope.search($scope.username);
+            }
+        }
+
+        var countdownInterval=null;
+
+       var startCountdown=function(){
+           countdownInterval=$interval(decrementCountdown,1000,$scope.countdown);
+       }
+
         $scope.username = 'angular';
 
         $scope.repoSortOrder="-stargazers_count";
 
         $scope.search=function(username){
+            $log.info("searching for"+ username);
             $http.get('https://api.github.com/users/'+ username)
                 .then(onUserComplete, onError);
+
+            if(countdownInterval){
+                $interval.cancel(countdownInterval);
+            }
+
+            $scope.countdown=null;
         }
+
+        $scope.countdown=5;
+        startCountdown();
 
 
     }]);
