@@ -2,7 +2,7 @@
  * Created by mariaturzynska on 12/3/14.
  */
 angular.module('app', [])
-    .controller('MainController', ['$scope', '$http', '$interval', '$log',function ($scope, $http, $interval, $log) {
+    .controller('MainController', ['$scope', '$http', '$interval', '$log','$anchorScroll','$location',function ($scope, $http, $interval, $log,$anchorScroll,$location) {
 
         var onUserComplete = function (response) {
             $scope.user = response.data;
@@ -10,9 +10,14 @@ angular.module('app', [])
                 .then(onRepos, onError);
         }
 
-        onRepos=function(response){
+        var onRepos=function(response){
             $scope.repos=response.data;
-            console.log($scope.repos);
+            /* to scroll the page to where the table of the repo starts
+               i need $location service to update the hash of the url
+             */
+
+            $location.hash('userDetails');
+            $anchorScroll();
         }
 
         var onError = function (reson) {
