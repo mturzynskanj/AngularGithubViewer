@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="app">
+<div class="container">
+    <div ng-controller="MainController">
+
+        <form name="searchUser" ng-submit="search(username)">
+            <input type="search" required placeholder="User to find" ng-model="username"/>
+            <input type="submit" value="Search" />
+        </form>
+
+
+        <br />
+
+        <h2>Name: {{user.name}}</h2>
+<!--
+        <img ng-src="http://www.gravatar.com/avatar/{{user.gravatar_id}}" title="{{user.name}}" />
+-->
+
+        <div ng-include="'userDetails.html'" ng-show="user"></div>
+
+</div>
+
+</div>
+
+
+<script type="text/javascript" src="./bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
+
+<script type="text/javascript" src="./app.js"></script>
+</body>
+</html>
